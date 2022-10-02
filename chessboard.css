@@ -1,62 +1,54 @@
 :root {
---cell-width: 8vw;
---cell-height: 8vw;
-}
-
-body,html{
-height: 100%;
-}
-
-body{
-display: flex;
-justify-content: center;
-align-items: center;
-margin: 0;
+    --cell-width: 9vw;
+    --cell-height: 9vw;
 
 }
 
-.board{
-height: calc(var(--cell-height)* 8);
-width: calc(var(--cell-width)* 8);
-border: solid 4px black;
+html {
+    height: 100%;
 
 }
 
-.board-row{
-display: flex;
-flex-direction: row;
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background-color: azure;
 }
 
-.cell-black{
-display: block;
-background-color: black;
-width: var(--cell-width);
-height: var(--cell-height);
-}
-
-.cell-white{
-display: block;
-background-color: white;
-width: var(--cell-width);
-height: var(--cell-height);
-}
-
-@media(min-width: 560px){
-
-.board{
-    height: calc(var(--cell-height)* 4);
-    width: calc(var(--cell-width)* 4);
-}    
-.cell-black{
-    width: calc(var(--cell-width)/ 2);
-    height: calc(var(--cell-height)/ 2);
-}
-.cell-white{
-    width: calc(var(--cell-width)/ 2);
-    height: calc(var(--cell-height)/ 2);
-}
+.board {
+    display: flex;
+    flex-direction: column;
 
 }
 
-@media(min-width: 980px){
+.board-row {
+    display: flex;
+    flex-direction: row;
+
+
+
+}
+.cell{
+    width: var(--cell-width);
+    height: var(--cell-height);
+    border: 1px solid rgb(0, 0, 0);
+}
+.cell.cell-black{
+    background-color: black;
+}
+
+.cell.cell-white{
+    background-color: white;
+}
+
+@media(min-width: 560px) {
+    :root {
+        --cell-width: 4vw;
+        --cell-height: 4vw;
+    }
+
 }
