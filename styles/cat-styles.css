@@ -73,6 +73,7 @@ body {
     font-style: italic;
     background-color: rgba(182, 123, 255, 0.563);;
     position: absolute;
+    font-size: 2em;
     left: 0vw;
     bottom: 3vw;
 
@@ -182,7 +183,7 @@ body {
         
 
         .details-title {
-            font-size: 1.5em;
+            font-size: 3em;
             bottom: 2vw
         }
 
