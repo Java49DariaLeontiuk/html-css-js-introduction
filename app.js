@@ -22,12 +22,14 @@ console.log("Hello world!");
 // let res = sum(op1,op2);
 // console.log(res);
 function sumDigits(number){
+    number = Math.abs(number);
+    number = Math.trunc(number);
     let res = 0;
     do{
-        let num=number%10;
-        res = res + num;
-        number = (number/10) | 0;
-    }while (number>0);
+        let num = number % 10;
+        res += num;
+        number = (number - num)/10;
+    }while (number!=0);
     return res; 
-}
-console.log(sumDigits(252));
+    }
+console.log(sumDigits(623));
