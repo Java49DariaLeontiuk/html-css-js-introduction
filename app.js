@@ -89,67 +89,107 @@ console.log("Hello world!");
 // // getting symbol frome code
 // console.log(String.fromCharCode(99));
 
-function fromNumberToString(number, base){
-    console.log('number =', number, 'base =', base);
-    if(!isBaseValid(base)) {
-        return 'base ='+ base +' is not valid';
-    }
-    if(isNaN(number)) {
-        return 'number =' + number +' isNaN';
-    }
-    let result = "";
-    let posNum = Math.abs(number);
-    do{
-        let rem = posNum % base;
-        if( rem > 9){
-            rem = String.fromCharCode(87+rem);
-        }
-        result = rem + result;
-        posNum = Math.trunc(posNum / base);
-    }while(posNum != 0);
-    return result;
-}
-console.log(fromNumberToString(900550, 36));
-console.log(fromNumberToString(46016237, 36));
-console.log(fromNumberToString(11483, 2));
+// function fromNumberToString(number, base){
+//     console.log('number =', number, 'base =', base);
+//     if(!isBaseValid(base)) {
+//         return 'base ='+ base +' is not valid';
+//     }
+//     if(isNaN(number)) {
+//         return 'number =' + number +' isNaN';
+//     }
+//     let result = "";
+//     let posNum = Math.abs(number);
+//     do{
+//         let rem = posNum % base;
+//         if( rem > 9){
+//             rem = String.fromCharCode(87+rem);
+//         }
+//         result = rem + result;
+//         posNum = Math.trunc(posNum / base);
+//     }while(posNum != 0);
+//     return result;
+// }
+// console.log(fromNumberToString(900550, 36));
+// console.log(fromNumberToString(46016237, 36));
+// console.log(fromNumberToString(11483, 2));
 
-function fromStringToNumber (inputStr, base)
-{
-    console.log('inputStr =', inputStr, ' base =', base);
-    if(!isBaseValid(base)) {
-        return 'base =' + base + ' is not valid';
-    }
-    if(typeof inputStr != 'string') {
-        return 'inputStr =' + inputStr +' is not string';
-    }
-    let result = 0;
-    inputStr.toLowerCase();
-    for(let i=0; i<inputStr.length;i++){
-        let code = inputStr.charCodeAt(i);
-        if(code>=48 && code <=57){
-            code-=48;
-        } else if(code>=97 && code <=122){
-            code-=87;
-        } else {
-            return "error";
-        }
-        result = result * base + code;
-    }
-    return result;
-}
-console.log(fromStringToNumber("java",36));
-console.log(fromStringToNumber("react",36));
-console.log(fromStringToNumber("10110011011011",2));
+// function fromStringToNumber (inputStr, base)
+// {
+//     console.log('inputStr =', inputStr, ' base =', base);
+//     if(!isBaseValid(base)) {
+//         return 'base =' + base + ' is not valid';
+//     }
+//     if(typeof inputStr != 'string') {
+//         return 'inputStr =' + inputStr +' is not string';
+//     }
+//     let result = 0;
+//     inputStr.toLowerCase();
+//     for(let i=0; i<inputStr.length;i++){
+//         let code = inputStr.charCodeAt(i);
+//         if(code>=48 && code <=57){
+//             code-=48;
+//         } else if(code>=97 && code <=122){
+//             code-=87;
+//         } else {
+//             return "error";
+//         }
+//         result = result * base + code;
+//     }
+//     return result;
+// }
+// console.log(fromStringToNumber("java",36));
+// console.log(fromStringToNumber("react",36));
+// console.log(fromStringToNumber("10110011011011",2));
 
-function isBaseValid(base){
-    if(isNaN(base)){
-        return false;
+// function isBaseValid(base){
+//     if(isNaN(base)){
+//         return false;
+//     }
+//     if(base > Math.trunc(base)){
+//         return false;
+//     }
+//     if(typeof base == "number" && base>=2 && base<=36){
+//         return true;
+//     }
+//     return false;
+// }
+
+function getSymbol(digit){
+    let codeA = "a".charCodeAt();
+    if (digit > 9){
+        digit = String.fromCharCode(codeA + digit - 10); 
     }
-    if(base > Math.trunc(base)){
-        return false;
-    }
-    if(typeof base == "number" && base>=2 && base<=36){
-        return true;
-    }
-    return false;
+    return digit;
 }
+function fromNumberToCode(number, base){
+        number = Math.abs(number);
+        let res = "";
+        do{
+            let digit = number % base;
+            let sym = getSymbol(digit);
+            res = sym + res;
+            number = Math.trunc(number/base);
+    
+        } while(number != 0);
+        return res;
+        }
+console.log(fromNumberToCode(900550,36));
+
+function getCode(symbol){
+    let codeA = "a".charCodeAt();
+    let res = symbol < "9" ? +symbol : symbol.charCodeAt() - codeA + 10;
+    return res;
+}
+
+function fromCodeToNumber(string, base){
+        string = string.toLowerCase();
+        let result = 0;
+        for(let i = 0; i < string.length; i++) {
+            let code = getCode(string[i]);
+            result = result * base + code;
+        }
+        return result;
+    }
+    console.log(fromCodeToNumber("10",16));
+
+    
