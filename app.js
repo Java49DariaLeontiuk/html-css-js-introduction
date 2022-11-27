@@ -1,151 +1,108 @@
-// function getAddressKey(){
-//     return "appartment";
+// function createEmployee (id, name, birthYear, salary){
+//     return {id, name: name, birthYear, salary};
 // }
-// const person = {id: 123, first_name: "Vasya", last_name: "Ivanov",
-//  year: 2000, address: {city: "Lod", street: " Sokolov", appartment: 100}
-// };
-// const name2 = getAddressKey();
-// console.log(person.address[name2]);
-// const yearExp = "ye" + "ar";
-// const name1 = "first" + "_name";
-// console.log(person["first_name"]);
-// console.log(person[name1]);
-// console.log("year: " + person.year);
-// console.log("year: " + person[yearExp]);
-
-// const personArr = [123, "Vasya", "Ivanov",2000, ["Lod", "Sokolov",100]];
-// console.log(personArr[3]);
-// console.log(person.address.city);
-// console.log(person.address);
-
-// function displayOccurrences(strings){
-//     const occurrences = {};
-//     strings.forEach(element => {
-//         if (occurrences[element]){
-//             occurrences[element]++;
-//         } else {
-//             occurrences[element] = 1;
-//         }
-//     });
-//     console.log(occurrences);
+// const empl1 = createEmployee(123, 'Vasya', 2000, 10000);
+// const empl2 = createEmployee(123, 'Vasya', 2000, 10000);
+// const empl = empl2;
+// console.log(empl2 === empl1);
+// function updateSalary(empl, newSalary){
+//     empl.salary = newSalary;
 // }
-// const strings = ['a','opr', 'lmn', 'abc', 'lmn', 'abc', 'lmn', 'abc', 'lmn', 'a'];
-// displayOccurrences(strings);
+// updateSalary(empl1,15000);
+// console.log(empl2);
 
-// const x = {};
-// const string = "abc";
-// x[string] = 1;
-// console.log(x);
-// x[string]++;
-// console.log(x);
-
-// function displayOccurrences(strings){
-//     const occurrences = {};
-//     strings.forEach(element => {
-//         if (occurrences[element]){
-//             occurrences[element]++;
-//         } else {
-//             occurrences[element] = 1;
-//         }
-//     });
-//     //console.log(Object.entries(occurrences));
-//     const occurrencesAr = Object.entries(occurrences);
-//     occurrencesAr.sort((e1,e2) => e2[1] - e1[1])
-//     //[ [ 'lmn', 4 ], [ 'abc', 3 ], [ 'a', 2 ], [ 'opr', 1 ] ]
-//     //occurrencesAr.sort((e1,e2) => e1[1] - e2[1])
-//     //[ [ 'opr', 1 ], [ 'a', 2 ], [ 'abc', 3 ], [ 'lmn', 4 ] ]
-//     console.log(occurrencesAr)
+// function updateSalaryPrimitive(salary, newSalary){
+//     salary = newSalary;
 // }
-// const strings = ['a','opr', 'lmn', 'abc', 'lmn', 'abc', 'lmn', 'abc', 'lmn', 'a'];
-// displayOccurrences(strings);
+// let salary = 10000
+// updateSalaryPrimitive(salary, 20000)
 
-// function fromWordToArr(word){
-//     let wordArr = Array.from(word.toLowerCase());
-//     return wordArr;
-// }
-// let word1 = "y6e5llow@ op"
-// let word2 = "@Wl ol56EYpo"
-// let word1Arr = fromWordToArr(word1);
-// let word2Arr = fromWordToArr(word2);
-// console.log(word1Arr);
-// console.log(word2Arr);
-
-// function displayOccurrences(wordArr){
-//         const occurrences = {};
-//         wordArr.forEach(element => {
-//             if (occurrences[element]){
-//                 occurrences[element]++;
-//             } else {
-//                 occurrences[element] = 1;
-//             }
-//         });
-//         const occurrencesAr = Object.entries(occurrences);
-//         occurrencesAr.sort();
-//         occurrencesAr.sort((e1,e2) => e2[1] - e1[1]);
-//         console.log(occurrencesAr);
-//         return occurrencesAr;
-//     }
-//     const obj1 = displayOccurrences(word1Arr);
-//     const obj2 = displayOccurrences(word2Arr);
-// console.log(JSON.stringify(obj1) === JSON.stringify(obj2));
-
-// function isAnagram(str1,str2){
-//     return Array.from(str1).sort().join('')==
-//     Array.from(str2).sort().join('')
-// }
-
-function isAnagram(str1, str2) {
-    let res = false;
-    if (str1.length == str2.length) {
-        const str1Occurrences = getSymbolOccurrences(str1);
-        res = checkAnagram(str1Occurrences, str2);
-    }
-
+function createEmployee(id, name, birthYear, salary) {
+    return {id, name, birthYear, salary};
 }
-function getSymbolOccurrences(string) {
-    const stringArray = Array.from(string);
-    return stringArray.reduce((res, cur) => {
-        if (res[cur]) {
-            res[cur]++;
-        } else {
-            res[cur] = 1;
-        }
-        return res;
-    }, {})
+function getRandomNumber(min, max) {
+    return Math.trunc(min + Math.random() * (max - min + 1));
 }
-
-function checkAnagram(occurrences, string) {
-    let res = true;
-    const stringArray = Array.from(string);
-    let i = 0;
-    return stringArray.every(symbol => {
-        let res = false;
-        if (occurrences[symbol]) {
-            res = true;
-            occurrences[symbol]--;
+function getRandomUniqueId(minId, maxId, ids) {
+    let id; 
+    do {
+        id = getRandomNumber(minId, maxId);
+    }while(ids.includes(id));
+    ids.push(id);
+    return id;
+}
+function createRandomEmployees(nEmployees, idDigits, minSalary,
+     maxSalary, minBirthYear, maxBirthYear) {
+        const result = [];
+        const ids = [];
+        const minId = 10 ** (idDigits - 1);
+        const maxId = minId * 10 - 1;
+        for(let i = 0; i < nEmployees; i++) {
+            const id = getRandomUniqueId(minId, maxId, ids);
+            const name = "name" + id;
+            const birthYear = getRandomNumber(minBirthYear, maxBirthYear);
+            const salary = getRandomNumber(minSalary, maxSalary);
+            const empl = createEmployee(id, name, birthYear, salary );
+            result.push(empl);
         }
-        return res;
+        return result;
+     }
+function getAverageAge(employees) {
+    const currentYear = new Date().getFullYear();
+    const sumAges = 
+    employees.reduce((res, cur) => res + currentYear - cur.birthYear, 0);
+    return Math.round(sumAges / employees.length);
+}
+function getEmployeesBySalary(employees, salaryFrom, salaryTo) {
+    const employeesBySalary = employees.filter(empl => empl.salary >= salaryFrom
+         && empl.salary <= salaryTo);
+    employeesBySalary.sort((e1, e2) => e1.salary - e2.salary);
+    return employeesBySalary;    
+}
+function increaseSalary(employees, borderSalary, percent) {
+    employees.forEach(empl => {
+        if (empl.salary < borderSalary) {
+            const increase = empl.salary * percent / 100;
+            empl.salary += increase;
+        }
     })
-    // while(i < stringArray.length && res){
-    //         const symbol = stringArray[i];
-    //         if(occurrences[symbol]){
-    //             occurrences[symbol]--;
-    //             i++;
-    //         } else {
-    //             res = false;
-    //         }
-    //         return res;
-    //     }
-
-    // for(let i = 0; i < stringArray.length; i++){
-    //     const symbol = stringArray[i];
-    //     if(occurrences[symbol]){
-    //         occurrences[symbol]--;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-    // return res;
 }
+/****************************************************** */
+/********************************************************* */
+function displayEmployees(employees) {
+    employees.forEach(empl => console.log(empl));
+}
+console.log("**********************************************")
+console.log("Create Random Employees: ")
+const nEmployees = 5;
+const idDigits = 1;
+const minBirthYear = 1950;
+const maxBirthYear = 2004;
+const minSalary = 10000;
+const maxSalary = 40000;
+console.log(`${nEmployees} random employees with id's comprising of ${idDigits} salary in range [${minSalary},${maxSalary}], birth years in range [${minBirthYear}, ${maxBirthYear}] `);
+let employees = createRandomEmployees(nEmployees, idDigits, minSalary, maxSalary,
+    minBirthYear, maxBirthYear);
+displayEmployees(employees);
+/********************************************************************* */   
+console.log("**********************************************")
+console.log("employees for following tests are");
+employees = [
+    createEmployee(123, "Sara", 1990, 12500),
+    createEmployee(124, "Sara", 2000, 20000),
+    createEmployee(125, "Sara", 2000, 12000),
+    createEmployee(126, "Sara", 1980, 25000),
+    createEmployee(127, "Sara", 1990, 20000),
+]
+displayEmployees(employees)
 
-isAnagram('yellow','wolley')
+console.log(`average age is ${getAverageAge(employees)}`)
+const salaryFrom = 12000; 
+const salaryTo = 20000;
+console.log(`employees having salary in the range [${salaryFrom}, ${salaryTo}]`);
+displayEmployees(getEmployeesBySalary(employees, salaryFrom, salaryTo));
+const borderSalary = 13000;
+const percent = 10;
+console.log(`employees after increasing salary on ${percent} percents for those who have salary less than ${borderSalary}`);
+increaseSalary(employees, borderSalary, percent);
+displayEmployees(employees);
