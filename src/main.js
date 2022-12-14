@@ -1,6 +1,7 @@
 import { Company } from "./data/company.js";
 import { EmployeeForm } from "./ui/employeeForm.js";
 import { showErrorMessage } from "./ui/errorMessage.js";
+import { SalariesForm } from "./ui/SalariesForm.js";
 
 const MIN_SALARY = 1000;
 const MAX_SALARY = 40000;
@@ -36,34 +37,17 @@ idSalaryInput: "salary_input", idDateError: "date_error", idSalaryError: "salary
 /********************************************************************************** */
 
 //functions of Salary Form
+const paramsSalaries = {idForm: "salary-form", idSalaryFromInput: "salaryFrom",
+idSalaryToInput: "salaryTo", idErrorMessage: "salary_form_error"};
+const salariesForm = new SalariesForm(paramsSalaries);
+salariesForm.addSubmitHandler((salariesObj) =>{
+    const employees = company.getEmployeesBySalary(salariesObj.salaryFrom, 
+        salariesObj.salaryTo);
+        employeesSalaryListElement.innerHTML = getEmployeeItems(employees)
 
-let salaryFrom = 0;
-let salaryTo = 0;
-function onSubmitSalary(event) {
-    event.preventDefault();
-    const employees = company.getEmployeesBySalary(salaryFrom, salaryTo);
-    employeesSalaryListElement.innerHTML = getEmployeeItems(employees);
+})
 
 
-   
-}
-function onChangeSalaryFrom(event) {
-    const value = +event.target.value;
-    if (salaryTo && value >= salaryTo) {
-        showErrorMessage(event.target, "Salary 'from' must be less than Salary 'to'",
-        salaryFormErrorElement);
-    } else {
-        salaryFrom = value;
-    }
-}
-function onChangeSalaryTo(event) {
-    const value = +event.target.value;
-    if (salaryFrom && value < salaryFrom) {
-        showErrorMessage(event.target, "Salary 'To' must be greater than Salary 'From'",
-        salaryFormErrorElement);
-    }
-    salaryTo = value;
-}
 function showSection(index) {
     buttonsMenuElement.forEach(e => e.classList.remove(ACTIVE));
     sectionsElement.forEach(e => e.hidden = true)
